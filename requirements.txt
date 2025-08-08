@@ -1,0 +1,108 @@
+# RAXION Assistant - Working Dependencies
+# Tested and verified on GTX 1060 6GB with Ubuntu
+# Generated: August 8, 2025
+
+# ===== CRITICAL ML/AI DEPENDENCIES =====
+# These exact versions are required for GTX 1060 compatibility
+torch==1.13.1
+torchaudio==0.13.1
+transformers==4.39.0
+tokenizers==0.15.2
+accelerate==0.20.3
+openai-whisper==20250625
+
+# ===== NVIDIA CUDA 11.7 SUPPORT (GTX 1060 Compatible) =====
+nvidia-cublas-cu11==11.10.3.66
+nvidia-cuda-nvrtc-cu11==11.7.99
+nvidia-cuda-runtime-cu11==11.7.99
+nvidia-cudnn-cu11==8.5.0.96
+
+# ===== AUDIO PROCESSING =====
+sounddevice==0.5.2
+soundfile==0.13.1
+pyttsx3==2.99
+
+# ===== SCIENTIFIC COMPUTING =====
+numpy==1.26.4
+scipy==1.15.3
+numba==0.61.2
+llvmlite==0.44.0
+
+# ===== HUGGINGFACE ECOSYSTEM =====
+huggingface-hub==0.34.3
+safetensors==0.6.1
+sentencepiece==0.2.0
+
+# ===== SYSTEM UTILITIES =====
+GPUtil==1.4.0
+psutil==7.0.0
+
+# ===== WEB AND NETWORK =====
+requests==2.32.4
+urllib3==2.5.0
+certifi==2025.8.3
+charset-normalizer==3.4.2
+idna==3.10
+
+# ===== TEXT PROCESSING =====
+regex==2025.7.34
+tiktoken==0.10.0
+Jinja2==3.1.6
+MarkupSafe==3.0.2
+
+# ===== FILE SYSTEM AND CONFIGURATION =====
+filelock==3.18.0
+fsspec==2025.7.0
+PyYAML==6.0.2
+packaging==25.0
+
+# ===== PROGRESS AND CLI =====
+tqdm==4.67.1
+click==8.2.1
+
+# ===== ADDITIONAL SUPPORT LIBRARIES =====
+pillow==11.3.0
+networkx==3.4.2
+more-itertools==10.7.0
+mpmath==1.3.0
+sympy==1.14.0
+protobuf==6.31.1
+typing_extensions==4.14.1
+cffi==1.17.1
+pycparser==2.22
+hf-xet==1.1.7
+
+# ===== DEVELOPMENT TOOLS (OPTIONAL) =====
+black==25.1.0
+flake8==7.3.0
+pycodestyle==2.14.0
+pyflakes==3.4.0
+mccabe==0.7.0
+mypy_extensions==1.1.0
+Pygments==2.19.2
+
+# ===== TESTING FRAMEWORK (OPTIONAL) =====
+pytest==8.4.1
+pluggy==1.6.0
+iniconfig==2.1.0
+exceptiongroup==1.3.0
+tomli==2.2.1
+pathspec==0.12.1
+
+# ===== BUILD TOOLS =====
+setuptools==59.6.0
+wheel==0.45.1
+platformdirs==4.3.8
+
+# ===== INSTALLATION NOTES =====
+# 1. This configuration is specifically tested for GTX 1060 6GB
+# 2. PyTorch 1.13.1 with CUDA 11.7 is the optimal version for GTX 1060
+# 3. Qwen2-0.5B-Instruct works perfectly with transformers 4.39.0
+# 4. OpenAI Whisper base model provides best speed/accuracy balance
+# 5. Total GPU memory usage: ~1.4GB (Whisper 0.27GB + Qwen2 1.12GB)
+# 
+# To recreate this environment:
+# 1. Create virtual environment: python -m venv raxion_env
+# 2. Activate: source raxion_env/bin/activate
+# 3. Install: pip install -r requirements.txt
+# 4. System dependencies: sudo apt install pulseaudio-dev portaudio19-dev espeak

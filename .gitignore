@@ -1,0 +1,143 @@
+# RAXION AI Assistant - .gitignore
+
+# Configuration files (user-specific)
+raxion_config.json
+voice_profile.json
+*.profile.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+raxion_env/
+.venv/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# Audio files (temporary recordings)
+*.wav
+*.mp3
+*.flac
+*.aac
+/tmp/raxion_*.wav
+/tmp/raxion_chunk_*.wav
+/tmp/raxion_calibration_*.wav
+
+# Model cache (HuggingFace/PyTorch)
+.cache/
+models/
+.huggingface/
+torch_cache/
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+.directory
+*.tmp
+*.temp
+
+# Logs
+*.log
+logs/
+raxion.log
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Development and testing
+test_*.py
+*_test.py
+benchmark_*.py
+benchmark_*.json
+profile_*.json
+debug_*.py
+
+# Documentation build
+docs/_build/
+site/
+
+# Local development
+.env
+.env.local
+local_config.json
+dev_config.json
+
+# Installation artifacts
+*.deb
+*.rpm
+*.pkg
+*.tar.gz
+*.zip
+
+# User data
+user_data/
+recordings/
+exports/
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.temp
