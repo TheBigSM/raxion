@@ -2705,6 +2705,97 @@ Assistant:"""
             
             print("✅ raxion shut down cleanly")
 
+def update_raxion():
+    """Update RAXION to the latest version from GitHub"""
+    import tempfile
+    import shutil
+    import subprocess
+    import os
+    
+    print("🔄 === RAXION Update ===")
+    print("Checking for updates...")
+    
+    # Determine installation directory
+    install_dir = os.path.expanduser("~/.local/share/raxion")
+    if not os.path.exists(install_dir):
+        print("❌ RAXION installation not found at ~/.local/share/raxion")
+        print("   Please run the installer first: ./install.sh")
+        sys.exit(1)
+    
+    try:
+        # Create temporary directory for download
+        with tempfile.TemporaryDirectory() as temp_dir:
+            print("📥 Downloading latest version from GitHub...")
+            
+            # Clone the latest version
+            result = subprocess.run([
+                "git", "clone", 
+                "https://github.com/TheBigSM/raxion.git", 
+                os.path.join(temp_dir, "raxion-update")
+            ], capture_output=True, text=True, timeout=60)
+            
+            if result.returncode != 0:
+                print(f"❌ Failed to download update: {result.stderr}")
+                sys.exit(1)
+            
+            update_dir = os.path.join(temp_dir, "raxion-update")
+            
+            # Check if we got the files
+            main_file = os.path.join(update_dir, "raxion_continuous.py")
+            if not os.path.exists(main_file):
+                print("❌ Downloaded files are incomplete")
+                sys.exit(1)
+            
+            print("🔄 Installing updates...")
+            
+            # Backup current installation
+            backup_dir = f"{install_dir}.backup"
+            if os.path.exists(backup_dir):
+                shutil.rmtree(backup_dir)
+            shutil.copytree(install_dir, backup_dir)
+            print(f"💾 Backup created: {backup_dir}")
+            
+            # Copy new files (preserve venv and config)
+            files_to_update = ["raxion_continuous.py", "requirements.txt"]
+            
+            for file_name in files_to_update:
+                src_file = os.path.join(update_dir, file_name)
+                dst_file = os.path.join(install_dir, file_name)
+                
+                if os.path.exists(src_file):
+                    shutil.copy2(src_file, dst_file)
+                    print(f"✅ Updated: {file_name}")
+            
+            # Check if requirements changed and update if needed
+            print("🔍 Checking dependencies...")
+            venv_python = os.path.join(install_dir, "venv", "bin", "python")
+            if os.path.exists(venv_python):
+                result = subprocess.run([
+                    venv_python, "-m", "pip", "install", "-r", 
+                    os.path.join(install_dir, "requirements.txt")
+                ], capture_output=True, text=True)
+                
+                if result.returncode == 0:
+                    print("✅ Dependencies updated")
+                else:
+                    print("⚠️ Warning: Failed to update dependencies")
+                    print("   You may need to run: pip install -r requirements.txt")
+            
+            print("\n✅ Update completed successfully!")
+            print("🚀 You can now run RAXION with the latest version")
+            print("\n💡 If you encounter issues, restore backup with:")
+            print(f"   rm -rf {install_dir}")
+            print(f"   mv {backup_dir} {install_dir}")
+            
+    except subprocess.TimeoutExpired:
+        print("❌ Download timed out. Please check your internet connection.")
+        sys.exit(1)
+    except Exception as e:
+        print(f"❌ Update failed: {e}")
+        print("   Please try manual update or reinstallation")
+        sys.exit(1)
+
+
 if __name__ == "__main__":
     # Parse arguments first, before importing heavy modules
     parser = argparse.ArgumentParser(description="RAXION - Local AI Assistant")
@@ -2712,12 +2803,14 @@ if __name__ == "__main__":
                        help="Run audio calibration to optimize voice detection")
     parser.add_argument("--setup", action="store_true", 
                        help="Run first-time setup")
+    parser.add_argument("--update", action="store_true", 
+                       help="Update RAXION to the latest version")
     parser.add_argument("--version", action="version", version="RAXION v1.0.0")
     
     args = parser.parse_args()
     
     # Only import heavy modules if we need them
-    if args.setup or args.calibrate:
+    if args.setup or args.calibrate or args.update:
         # For setup/calibration, we need scipy but not the heavy models
         try:
             import scipy.io.wavfile
@@ -2808,6 +2901,10 @@ if __name__ == "__main__":
             print("\n🎯 Starting audio calibration...")
             raxion = ContinuousRAXION()
             raxion.run_audio_calibration()
+            
+        elif args.update:
+            # Run update
+            update_raxion()
         
     else:
         # Normal operation - import everything and run
