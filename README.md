@@ -188,6 +188,7 @@ Edit `~/.local/share/raxion/raxion_config.json`:
 | `raxion --calibrate` | Audio calibration only |
 | `raxion --help` | Show help information |
 | `raxion --version` | Show version |
+| `raxion --update` | Update to the newest version |
 
 ## 🏗️ Architecture
 

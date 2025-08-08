@@ -2748,12 +2748,20 @@ def update_raxion():
             
             print("🔄 Installing updates...")
             
-            # Backup current installation
+            # Create lightweight backup of only essential files
             backup_dir = f"{install_dir}.backup"
             if os.path.exists(backup_dir):
                 shutil.rmtree(backup_dir)
-            shutil.copytree(install_dir, backup_dir)
-            print(f"💾 Backup created: {backup_dir}")
+            os.makedirs(backup_dir)
+            
+            # Only backup essential files (not the huge venv directory)
+            essential_files = ["raxion_continuous.py", "requirements.txt", "raxion_config.json", "voice_profile.json"]
+            for file_name in essential_files:
+                src_file = os.path.join(install_dir, file_name)
+                if os.path.exists(src_file):
+                    shutil.copy2(src_file, os.path.join(backup_dir, file_name))
+            
+            print(f"💾 Backup created (essential files only): {backup_dir}")
             
             # Copy new files (preserve venv and config)
             files_to_update = ["raxion_continuous.py", "requirements.txt"]
@@ -2766,26 +2774,37 @@ def update_raxion():
                     shutil.copy2(src_file, dst_file)
                     print(f"✅ Updated: {file_name}")
             
-            # Check if requirements changed and update if needed
-            print("🔍 Checking dependencies...")
-            venv_python = os.path.join(install_dir, "venv", "bin", "python")
-            if os.path.exists(venv_python):
-                result = subprocess.run([
-                    venv_python, "-m", "pip", "install", "-r", 
-                    os.path.join(install_dir, "requirements.txt")
-                ], capture_output=True, text=True)
-                
-                if result.returncode == 0:
-                    print("✅ Dependencies updated")
-                else:
-                    print("⚠️ Warning: Failed to update dependencies")
-                    print("   You may need to run: pip install -r requirements.txt")
+            # Check if requirements.txt actually changed to avoid unnecessary reinstalls
+            old_req = os.path.join(backup_dir, "requirements.txt")
+            new_req = os.path.join(install_dir, "requirements.txt")
+            
+            requirements_changed = True
+            if os.path.exists(old_req) and os.path.exists(new_req):
+                with open(old_req, 'r') as f1, open(new_req, 'r') as f2:
+                    requirements_changed = f1.read() != f2.read()
+            
+            # Only update dependencies if requirements actually changed
+            if requirements_changed:
+                print("🔍 Requirements changed, updating dependencies...")
+                venv_python = os.path.join(install_dir, "venv", "bin", "python")
+                if os.path.exists(venv_python):
+                    result = subprocess.run([
+                        venv_python, "-m", "pip", "install", "-r", 
+                        os.path.join(install_dir, "requirements.txt")
+                    ], capture_output=True, text=True)
+                    
+                    if result.returncode == 0:
+                        print("✅ Dependencies updated")
+                    else:
+                        print("⚠️ Warning: Failed to update dependencies")
+                        print("   You may need to run: pip install -r requirements.txt")
+            else:
+                print("✅ No dependency changes detected, skipping package updates")
             
             print("\n✅ Update completed successfully!")
             print("🚀 You can now run RAXION with the latest version")
-            print("\n💡 If you encounter issues, restore backup with:")
-            print(f"   rm -rf {install_dir}")
-            print(f"   mv {backup_dir} {install_dir}")
+            print("\n💡 If you encounter issues, restore backup files with:")
+            print(f"   cp {backup_dir}/* {install_dir}/")
             
     except subprocess.TimeoutExpired:
         print("❌ Download timed out. Please check your internet connection.")
