@@ -6,12 +6,7 @@ RAXION is an open-source voice-controlled AI assistant that runs entirely on you
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.8+-green.svg)
-![Platform](https://img.shie## 📞 Support & Community
-
-- 🐛 **Bug Reports:** [GitHub Issues](https://github.com/TheBigSM/raxion/issues)
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/TheBigSM/raxion/discussions)
-- 📚 **Documentation:** [GitHub Wiki](https://github.com/TheBigSM/raxion/wiki)
-- 💌 **Contact:** Create an issue for support/badge/platform-Linux-orange.svg)
+![Platform](https://img.shields.io/badge/platform-Linux-orange.svg)
 
 ## ✨ Key Features
 
@@ -436,10 +431,10 @@ RAXION builds upon excellent open-source projects:
 
 ## 📞 Support & Community
 
-- 🐛 **Bug Reports:** [GitHub Issues](https://github.com/yourusername/raxion/issues)
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/yourusername/raxion/discussions)
-- � **Documentation:** [GitHub Wiki](https://github.com/yourusername/raxion/wiki)
-- 💌 **Contact:** raxion-support@yourproject.com
+- 🐛 **Bug Reports:** [GitHub Issues](https://github.com/TheBigSM/raxion/issues)
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/TheBigSM/raxion/discussions)
+- 📚 **Documentation:** [README.md](https://github.com/TheBigSM/raxion/blob/main/README.md) & [CONTRIBUTING.md](https://github.com/TheBigSM/raxion/blob/main/CONTRIBUTING.md)
+- 💌 **Contact:** Create an issue for support
 
 ## ⭐ Star History
 
