@@ -434,7 +434,6 @@ RAXION builds upon excellent open-source projects:
 - 🐛 **Bug Reports:** [GitHub Issues](https://github.com/TheBigSM/raxion/issues)
 -  **Documentation:** [README.md](https://github.com/TheBigSM/raxion/blob/main/README.md) & [CONTRIBUTING.md](https://github.com/TheBigSM/raxion/blob/main/CONTRIBUTING.md)
 - 🌐 **Contact:** [thebigsm.github.io](https://thebigsm.github.io/)
-- 💬 **Support:** Create an issue for help and questions
 
 ## ⭐ Star History
 
